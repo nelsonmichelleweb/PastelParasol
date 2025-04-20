@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Pastel Parasol</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+var HeartsBackground = {
+  heartHeight: 20,
+  heartWidth: 20,
+  hearts: [],
+  heartImage: 'https://64.media.tumblr.com/3f9d031b8bb9ffe5bdb0ea0e23c07f31/tumblr_inline_p7gi20aXG41qfc9y0_75sq.gifv',
+  maxHearts: 15,
+  minScale: 1,
+  draw: function() {
+    this.setCanvasSize();
+    this.ctx.clearRect(0, 0, this.w, this.h);
+    for (var i = 0; i < this.hearts.length; i++) {
+      var heart = this.hearts[i];
+      heart.image = new Image();
+      heart.image.style.height = heart.height;
+      heart.image.src = this.heartImage;
+      this.ctx.globalAlpha = heart.opacity;
+      this.ctx.drawImage (heart.image, heart.x, heart.y, heart.width, heart.height);
+    }
+    this.move();
+  },
+  move: function() {
+    for(var b = 0; b < this.hearts.length; b++) {
+      var heart = this.hearts[b];
+      heart.y += heart.ys;
+      if(heart.y > this.h) {
+        heart.x = Math.random() * this.w;
+        heart.y = -1 * this.heartHeight;
+      }
+    }
+  },
+  setCanvasSize: function() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = 500;
+    this.w = this.canvas.width;
+    this.h = this.canvas.height;
+  },
+  initialize: function() {
+    this.canvas = $('#canvas')[0];
+
+    if(!this.canvas.getContext)
+      return;
+
+    this.setCanvasSize();
+    this.ctx = this.canvas.getContext('2d');
+
+    for(var a = 0; a < this.maxHearts; a++) {
+      var scale = (Math.random() * (1 - this.minScale)) + this.minScale;
+      this.hearts.push({
+        x: Math.random() * this.w,
+        y: Math.random() * this.h,
+        ys: Math.random() + 1,
+        height: scale * this.heartHeight,
+        width: scale * this.heartWidth,
+        opacity: scale
+      });
+    }
+    
+    setInterval($.proxy(this.draw, this), 5);
+  }
+};
+
+$(document).ready(function(){
+  HeartsBackground.initialize();
+});
+
+
+//speech hover
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Speech bubble hover
+  const bubbles = document.querySelectorAll(".bubble");
+  bubbles.forEach((bubble) => {
+    bubble.addEventListener("mouseenter", () => {
+      bubble.setAttribute('src', 'img/speech-bubble1.png');
+    });
+    bubble.addEventListener("mouseleave", () => {
+      bubble.setAttribute('src', 'img/speech-bubble.png');
+    });
+  });
+
+  // Heart hover
+  const hearts = document.querySelectorAll(".heart");
+  hearts.forEach((heart) => {
+    heart.addEventListener("mouseenter", () => {
+      heart.setAttribute('src', 'img/heart1.png');
+    });
+    heart.addEventListener("mouseleave", () => {
+      heart.setAttribute('src', 'img/heart.png');
+    });
+  });
+});
+
+
+
+    </script>
+    
+</head>
+<body>
+    <div id="header">
+        <div id="nav">
+            <div id="topnav">
+                <ul>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#recomendations">Recomendations</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#header">Home</a></li>                    
+                </ul>
+            </div>
+        </div>
+        <div id="headimg">
+            <canvas id="cbg" ></canvas>
+            <canvas id="canvas"></canvas>
+            
+            
+        </div>
+    </div>
+    <div id="about">
+        <div id="abtcont">
+            <div id="abttext">
+                <h3>About Pastel Parasol</h3>
+                <p>"Welcome to Pastel Parasol, your enchanted gateway to the whimsical 
+                  world of Lolita fashion. Here, we celebrate the art of elegance, individuality, 
+                  and nostalgia through meticulously crafted pieces inspired by the timeless charm of
+                   Victorian, Rococo, and fairytale aesthetics."</p>
+                  <p>Our journey began with a simple yet profound love for the intricate beauty of 
+                    Lolita fashion. From delicate lace and flowing ruffles to pastel palettes and 
+                    bold Gothic hues, our collections are curated to empower you to express your unique
+                     story in a world that feels like a living dream.</p>
+            </div>
+            <div id="abtimg">
+                <img src="img/2.jpg" id="aimg">
+            </div>
+        </div>
+    </div>
+    <div id="blog">
+      <div id="bhead">
+        <h1>Our Blog</h1>
+        <h5>Dive into the world of Lolita fashion with our blog.</h5>
+      </div>
+      <div id="bcont">
+        <div class="bpost">
+          <div class="bimg">
+            <img class="abim" src="img/a.png">
+          </div>
+          <div class="binfo">
+            <div class="bc">
+              
+              <h6>Cosplay Lolita </h6>
+              
+              <div class="bicon">
+                <img class="bubble" src="img/speech-bubble.png" >
+                <img class="heart" src="img/heart.png" >
+              </div>
+            </div>
+            <div class="bd">
+              <p>Rosario Gonzales</p>
+            </div>
+           
+          </div>
+          <div class="bla">
+            <p>Discover the magical intersection of cosplay and Lolita fashion! 
+              In this article, we explore how these two creative styles come 
+              together to create unique and whimsical looks....</p>
+          </div>
+          <div class="bbttn">
+            <button class="button1" input type="button"> Read More... </button>
+          </div>
+        </div>
+        <div class="bpost">
+          <div class="bimg">
+            <img class="abim" src="img/b.png">
+          </div>
+          <div class="binfo">
+            <div class="bc">
+              
+              <h6>Sweet Lolita</h6>
+              
+              <div class="bicon">
+                <img class="bubble" src="img/speech-bubble.png" >
+                <img class="heart" src="img/heart.png" >
+              </div>
+            </div>
+            <div class="bd">
+              <p>Amanda Stiles</p>
+            </div>
+           
+          </div>
+          <div class="bla">
+            <p>Step into the sugary-sweet world of Sweet Lolita, where pastel hues, 
+              playful prints, and delicate bows create a style straight out of a fairytale. 
+              In this article, we delve into the essence of Sweet Lolita fashion...</p>
+          </div>
+          <div class="bbttn">
+            <button class="button1" input type="button"> Read More... </button>
+          </div>
+        </div>
+        <div class="bpost">
+          <div class="bimg">
+            <img class="abim" src="img/c.png">
+          </div>
+          <div class="binfo">
+            <div class="bc">
+              
+              <h6>Gothic Lolita</h6>
+              
+              <div class="bicon">
+                <img class="bubble" src="img/speech-bubble.png" >
+                <img class="heart" src="img/heart.png" >
+              </div>
+            </div>
+            <div class="bd">
+              <p>Hana Chen</p>
+            </div>
+           
+          </div>
+          <div class="bla">
+            <p>Unveil the mysterious beauty of Gothic Lolita, where dark romance meets intricate elegance. 
+              In this article, we explore the hallmarks of this captivating style from rich fabrics and 
+              lace to dramatic accessories...</p>
+          </div>
+          <div class="bbttn">
+            <button class="button1" input type="button"> Read More... </button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div id="recomendations">
+        <div id="rechead">
+          <h1>Our recomendations</h1>
+          <h5>Our best finds on the internet</h5>
+        </div>
+        <div id="hcont">
+          <div class="shop">
+            <div class="rimg">
+              <img src="img/d.png">
+            </div>
+            <div class="rev">
+              <p>"The Enchanted Strawberry Lolita Headband is a stunning accessory that 
+                perfectly complements any Sweet or Classic Lolita coord."</p>
+            </div>
+            <div class="sbutton">
+              <button class="button2">Buy now</button>
+            </div>
+          </div>
+          <div class="shop">
+            <div class="rimg">
+              <img src="img/e.png">
+            </div>
+            <div class="rev">
+              <p>"The Dreamy Belle Lolita Heels are the perfect blend of elegance and comfort, 
+                making them a must-have for any Lolita wardrobe."</p>
+            </div>
+            <div class="sbutton">
+              <button class="button2">Buy now</button>
+            </div>
+          </div>
+          <div class="shop">
+            <div class="rimg">
+              <img src="img/f.png">
+            </div>
+            <div class="rev">
+              <p>"The Midnight Elegance Black Lolita Dress is a breathtaking piece that embodies Gothic Lolita sophistication."</p>
+            </div>
+            <div class="sbutton">
+              <button class="button2">Buy now</button>
+            </div>
+          </div>
+          <div class="shop">
+            <div class="rimg">
+              <img src="img/g.png">
+            </div>
+            <div class="rev">
+              <p>"The Scarlet Charm Lolita Bow is a striking accessory that adds a bold pop of color to any coord."</p>
+            </div>
+            <div class="sbutton">
+              <button class="button2">Buy now</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div id="team">
+      <div id="theader">
+        <h1>Our team</h1>
+      </div>
+      <div class="tcont">
+        <div class="t">
+          <div class="timg">
+            <img src="img/h.png">
+          </div>
+          <div class="name">
+            <h5> Amanda Stiles </h5>
+          </div>
+          <div class="bla">
+            <p>I'm a passionate Sweet Lolita enthusiast who adores all things pastel, 
+              frilly, and whimsical. For me, Sweet Lolita isn't just a fashion style
+              it's a way to bring a little magic and cuteness into everyday life</p>
+          </div>
+        </div>
+        <div class="t">
+          <div class="timg">
+            <img src="img/i.png">
+          </div>
+          <div class="name">
+            <h5> Hana Chen </h5>
+          </div>
+          <div class="bla">
+            <p>'m a dedicated Lolita fashion enthusiast with a love for the intricate 
+              details and whimsical elegance of this charming style. Whether it's 
+              coordinating a sweet pastel outfit or a more classic, vintage-inspired look, 
+              I take joy in expressing my creativity through fashion.</p>
+          </div>
+        </div>
+        <div class="t">
+          <div class="timg">
+            <img src="img/j.png">
+          </div>
+          <div class="name">
+            <h5> Rosario Gonzales </h5>
+          </div>
+          <div class="bla">
+            <p>Hello! I’m a Lolita fashion lover with a deep passion 
+              for all things red. From rich, vibrant shades to delicate 
+              crimson accents, I adore incorporating this bold color into my outfits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer">
+      ©2024 Pastel Parasol. All rights reserved.
+    </div>
+</body>
